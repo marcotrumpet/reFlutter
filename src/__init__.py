@@ -18,7 +18,7 @@ else:
     from urllib import urlretrieve
     from urllib import urlopen
 
-patchDump = True    
+patchDump = False    
 
 IPBurp = '192.168.1.12'
 libAppArm64 = '',''
@@ -62,12 +62,12 @@ def patchCase():
 def inputIPBurp():
     global IPBurp
     try:
-        IPBurp = raw_input("Example: (192.168.1.154) etc.\nPlease enter your BurpSuite IP: ")
+        IPBurp = raw_input("\nExample: (192.168.1.154) etc.\nPlease enter your BurpSuite IP: ")
         if not re.match(r'[0-9]+(?:\.[0-9]+){3}', IPBurp):
             print("Invalid IP Address")
             inputIPBurp()
     except:
-        IPBurp = input('Example: (192.168.1.154) etc.\nPlease enter your BurpSuite IP: ')
+        IPBurp = input('\nExample: (192.168.1.154) etc.\nPlease enter your BurpSuite IP: ')
         if not re.match(r'[0-9]+(?:\.[0-9]+){3}', IPBurp):
             print("Invalid IP Address")
             inputIPBurp()
