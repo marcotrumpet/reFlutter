@@ -10,6 +10,7 @@ This framework helps with Flutter apps reverse engineering using the patched ver
 Key features:
 - `socket.cc` is patched for traffic monitoring and interception;
 - `dart.cc` is modified to print classes, functions and some fields;
+- display absolute code offset for functions
 - contains minor changes for successfull compilation;
 - if you would like to implement your own patches, there is manual Flutter code change is supported using specially crafted `Dockerfile`
 ### Supported engines
@@ -19,7 +20,7 @@ Key features:
 ### Install
 ```
 # Linux, Windows, MacOS
-pip3 install reflutter
+pip3 install reflutter==0.6.8
 ```
 ### Usage
 ```console
@@ -110,9 +111,17 @@ PlainNotificationToken* _instance = sentinel;
 </details>
 
 ### Usage on iOS
-Use the IPA file created after the execution of `reflutter main.ipa` command. To see which code is loaded through DartVM, you need to run the application on the device. reFlutter prints its output in console logs in XCode with the `reflutter` tag.
+Use the IPA file created after the execution of `reflutter main.ipa` command. To see which code is loaded through DartVM, you need to run the application on the device. reFlutter will print the dump file path to the Xcode console logs with the reFlutter tag
+`Current working dir: /private/var/mobile/Containers/Data/Application/<UUID>/dump.dart`
+Next, you will need to pull the file from the device
 <p align="center"><img src="https://user-images.githubusercontent.com/87244850/135860648-a13ba3fd-93d2-4eab-bd38-9aa775c3178f.png" width="100%"/></p>
 
+### Frida
+The resulting offset from the dump can be used in the frida [script](https://github.com/Impact-I/reFlutter/blob/main/frida.js)
+```
+frida -U -f <package> -l frida.js --no-pause
+```
+To get value for `_kDartIsolateSnapshotInstructions` you can use `readelf -Ws libapp.so` Where is the value you need in the `Value` field
 ### To Do
 - [x] Display absolute code offset for functions;
 - [ ] Extract more strings and fields;
