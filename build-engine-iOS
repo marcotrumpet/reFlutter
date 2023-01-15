@@ -15,8 +15,23 @@ brew install ideviceinstaller
 brew install ios-deploy
 pip3 install wheel
 pip3 install .
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-git clone https://github.com/flutter/engine.git
+
+if [ -d "depot_tools" ];then
+  cd depot_tools
+  git pull origin main
+  cd ..
+else
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+fi
+
+if [ -d "engine" ];then
+  cd engine
+  git pull origin main
+  cd ..
+else
+  git clone https://github.com/flutter/engine.git
+fi
+
 export PATH=$PATH:$ROOT_DIR/depot_tools
 cd engine
 git fetch origin $(reflutter "$SNAPSHOT_HASH" -l)
@@ -25,7 +40,13 @@ reflutter "$SNAPSHOT_HASH" -l
 echo 'reflutter' > REFLUTTER
 git add . && git commit -am "reflutter"
 cd $ROOT_DIR
-mkdir customEngine
+if [ -d "customEngine" ]; then
+  cd customEngine/src/
+  git pull origin master
+  cd ../..
+else
+  mkdir customEngine
+fi
 cd customEngine
 echo 'solutions = [{"managed": False,"name": "src/flutter","url": "'$ROOT_DIR/engine'","custom_deps": {},"deps_file": "DEPS","safesync_url": "",},]' > .gclient
 gclient sync

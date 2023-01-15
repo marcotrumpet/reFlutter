@@ -2,24 +2,43 @@
 
 SNAPSHOT_HASH=$(cat SNAPSHOT_HASH)
 ROOT_DIR=`pwd`
-sudo apt-get update
-sudo apt-get install git git-man git-svn  wget curl software-properties-common unzip  python3 python-is-python3 lsb-release apt-transport-https -y
-DEBIAN_FRONTEND="noninteractive" sudo apt-get -y install tzdata
+#sudo apt-get update
+#sudo apt-get install git git-man git-svn  wget curl software-properties-common unzip  python3 python-is-python3 lsb-release apt-transport-https -y
+#DEBIAN_FRONTEND="noninteractive" sudo apt-get -y install tzdata
 pip3 install wheel
 pip3 install .
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-git clone https://github.com/flutter/engine.git
-cd $ROOT_DIR
+if [ -d "depot_tools" ];then
+  cd depot_tools
+  git pull origin main
+  cd ..
+else
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+fi
+
+if [ -d "engine" ];then
+  cd engine
+  git pull origin main
+  cd ..
+else
+  git clone https://github.com/flutter/engine.git
+fi
+
 export PATH=$PATH:$ROOT_DIR/depot_tools
 cd engine
-git config --global user.email "reflutter@example.com" && git config --global user.name "reflutter"
+#git config --global user.email "reflutter@example.com" && git config --global user.name "reflutter"
 git fetch origin $(reflutter "$SNAPSHOT_HASH" -l)
 git reset --hard FETCH_HEAD
 reflutter "$SNAPSHOT_HASH" -l
 echo 'reflutter' > REFLUTTER
 git add . && git commit -am "reflutter"
 cd $ROOT_DIR
-mkdir --parents customEngine
+if [ -d "customEngine" ]; then
+  cd customEngine/src/
+  git pull origin master
+  cd ../..
+else
+  mkdir customEngine
+fi
 cd customEngine
 echo 'solutions = [{"managed": False,"name": "src/flutter","url": "'$ROOT_DIR/engine'","custom_deps": {},"deps_file": "DEPS","safesync_url": "",},]' > .gclient
 gclient sync
