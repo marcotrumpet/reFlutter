@@ -75,36 +75,36 @@ def inputIPBurp():
 
 def networkLib():
     global libAppArm64,libAppArm,libAppX64,libAppX86,libios,patchDump
-    verUrl = "v2-"
+    verUrl = "v1-"
     if patchDump:
-       verUrl = "v3-"
+       verUrl = "v2-"
     if len(libios[1]) != 0:
        try:
-        urlretrieve("https://github.com/Impact-I/reFlutter/releases/download/ios-"+verUrl+libios[1]+"/Flutter", "Flutter")
+        urlretrieve("https://github.com/jayluxferro/custom-flutter-engines/releases/download/"+verUrl+libios[1]+"/Flutter", "Flutter")
        except:
         libios='',''
         notexcept("Flutter")
     if len(libAppArm64[1]) != 0:
        try: 
-        urlretrieve("https://github.com/Impact-I/reFlutter/releases/download/android-"+verUrl+libAppArm64[1]+"/libflutter_arm64.so", "libflutter_arm64.so")
+        urlretrieve("https://github.com/jayluxferro/custom-flutter-engines/releases/download/"+verUrl+libAppArm64[1]+"/libflutter_arm64.so", "libflutter_arm64.so")
        except:
         libAppArm64='',''
         notexcept("libflutter_arm64.so")
     if len(libAppArm[1]) != 0:
        try:
-        urlretrieve("https://github.com/Impact-I/reFlutter/releases/download/android-"+verUrl+libAppArm[1]+"/libflutter_arm.so", "libflutter_arm.so")
+        urlretrieve("https://github.com/jayluxferro/custom-flutter-engines/releases/download/android-"+verUrl+libAppArm[1]+"/libflutter_arm.so", "libflutter_arm.so")
        except:
         libAppArm='',''
         notexcept("libflutter_arm.so")
     if len(libAppX64[1]) != 0:
        try:
-        urlretrieve("https://github.com/Impact-I/reFlutter/releases/download/android-"+verUrl+libAppX64[1]+"/libflutter_x64.so", "libflutter_x64.so")
+        urlretrieve("https://github.com/jayluxferro/custom-flutter-engines/releases/download/android-"+verUrl+libAppX64[1]+"/libflutter_x64.so", "libflutter_x64.so")
        except:
         libAppX64='',''
         notexcept("libflutter_x64.so")
     if len(libAppX86[1]) != 0:
        try:
-        urlretrieve("https://github.com/Impact-I/reFlutter/releases/download/android-"+verUrl+libAppX86[1]+"/libflutter_x86.so", "libflutter_x86.so")
+        urlretrieve("https://github.com/jayluxferro/custom-flutter-engines/releases/download/android-"+verUrl+libAppX86[1]+"/libflutter_x86.so", "libflutter_x86.so")
        except:
         libAppX86='',''
         notexcept("libflutter_x86.so")
@@ -314,10 +314,10 @@ def checkHash():
     if libappHash=="":
         print("\nIs this really a Flutter app? \nThere was no libapp.so (Android) or App (iOS) found in the package.\n\n Make sure there is arm64-v8a/libapp.so or App.framework/App file in the package. If flutter library name differs you need to rename it properly before patching.\n")
         sys.exit()
-    resp = urlopen('https://raw.githubusercontent.com/Impact-I/reFlutter/main/enginehash.csv').read().decode('utf-8')
+    resp = urlopen('https://raw.githubusercontent.com/jayluxferro/reFlutter/main/enginehash.csv').read().decode('utf-8')
     if libappHash not in resp:
         shutil.rmtree('libappTmp')
-        print("\n Engine SnapshotHash: "+libappHash+"\n\n This engine is currently not supported.\n Most likely this flutter application uses the Debug version engine which you need to build manually using Docker at the moment.\n More details: https://github.com/Impact-I/reFlutter\n")
+        print("\n Engine SnapshotHash: "+libappHash+"\n\n This engine is currently not supported.\n Most likely this flutter application uses the Debug version engine which you need to build manually using Docker at the moment.\n More details: https://github.com/jayluxferro/custom-flutter-engines\n")
         sys.exit()
 
 def extractZip(zipname):
@@ -367,7 +367,7 @@ def main():
     patchDump = True
 
   if not os.path.exists("enginehash.csv"):
-    urlretrieve("https://raw.githubusercontent.com/Impact-I/reFlutter/main/enginehash.csv", "enginehash.csv")
+    urlretrieve("https://raw.githubusercontent.com/jayluxferro/reFlutter/main/enginehash.csv", "enginehash.csv")
 
   with open("enginehash.csv") as f_obj:
    replaceFileText('src/src/flutter/BUILD.gn','  if (is_android) {\n    public_deps +=\n        [ "//flutter/shell/platform/android:flutter_shell_native_unittests" ]\n  }','')
