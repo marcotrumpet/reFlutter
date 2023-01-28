@@ -18,7 +18,7 @@ else:
     from urllib import urlretrieve
     from urllib import urlopen
 
-patchDump = True    
+patchDump = False
 
 IPBurp = '192.168.1.12'
 libAppArm64 = '',''
@@ -362,6 +362,9 @@ def main():
     shutil.rmtree('libappTmp')
   else:
     libappHash = sys.argv[1]
+
+  if len(sys.argv) > 3:
+    patchDump = True
 
   if not os.path.exists("enginehash.csv"):
     urlretrieve("https://raw.githubusercontent.com/Impact-I/reFlutter/main/enginehash.csv", "enginehash.csv")
