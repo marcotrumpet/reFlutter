@@ -35,5 +35,6 @@ for c in f.read():
            libappHash = hashT[0]
            break
        f.close()
+    result = ""
 
 print(libappHash)
