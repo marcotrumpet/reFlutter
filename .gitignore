@@ -13,3 +13,4 @@ depot_tools/
 engine/
 libplist/
 libusbmuxd/
+.idea/
