@@ -1,8 +1,11 @@
-[![Twitter](https://img.shields.io/twitter/follow/lmpact_l.svg?logo=twitter)](https://twitter.com/lmpact_l)
+[![Twitter](https://img.shields.io/twitter/follow/jayluxferro.svg?logo=twitter)](https://twitter.com/jayluxferro)
 
-[![stars](https://img.shields.io/github/stars/Impact-I/reFlutter)](https://github.com/Impact-I/reFlutter/stargazers) [![workflow](https://img.shields.io/github/workflow/status/Impact-I/reFlutter/Build)](https://github.com/Impact-I/reFlutter/actions)
+[![stars](https://img.shields.io/github/stars/jayluxferro/reFlutter)](https://github.com/jayluxferro/reFlutter/stargazers) [![workflow](https://img.shields.io/github/workflow/status/jayluxferro/reFlutter/Build)](https://github.com/jayluxferro/reFlutter/actions)
 
 <p align="center"><img src="https://user-images.githubusercontent.com/87244850/135659542-22bb8496-bf26-4e25-b7c1-ffd8fc0cea10.png" width="75%"/></p>
+
+
+**NB:** A fork of the original [reFlutter](https://github.com/Impact-I/reFlutter).
 
 #
 This framework helps with Flutter apps reverse engineering using the patched version of the Flutter library which is already compiled and ready for app repacking. This library has snapshot deserialization process modified to allow you perform dynamic analysis in a convenient way.
@@ -17,10 +20,14 @@ Key features:
 - Android: arm64, arm32;
 - iOS: arm64;
 - Release: Stable, Beta
+
+**NB:** Repository for custom flutter engines: [https://github.com/jayluxferro/custom-flutter-engines](https://github.com/jayluxferro/custom-flutter-engines)
+
+
 ### Install
 ```
 # Linux, Windows, MacOS
-pip3 install reflutter==0.7.2
+pip3 install git+https://github.com/jayluxferro/reFlutter
 ```
 ### Usage
 ```console
@@ -130,12 +137,12 @@ To get value for `_kDartIsolateSnapshotInstructions` you can use `readelf -Ws li
 - [ ] Improve detection of `App.framework` and `libapp.so` inside zip archive
   
 ### Build Engine
-The engines are built using [reFlutter](https://github.com/Impact-I/reFlutter/blob/main/.github/workflows/main.yml) in [Github Actions](https://github.com/Impact-I/reFlutter/actions) to build the desired version, commits and snapshot hashes are used from this [table](https://github.com/Impact-I/reFlutter/blob/main/enginehash.csv).
+The engines are built using [reFlutter](https://github.com/jayluxferro/reFlutter/blob/main/.github/workflows/main.yml) in [Github Actions](https://github.com/jayluxferro/reFlutter/actions) to build the desired version, commits and snapshot hashes are used from this [table](https://github.com/Impact-I/jayluxferro/blob/main/enginehash.csv).
 The hash of the snapshot is extracted from ```storage.googleapis.com/flutter_infra_release/flutter/<hash>/android-arm64-release/linux-x64.zip```
 <details>
 <summary>release</summary>
   
-[![gif](https://user-images.githubusercontent.com/87244850/135758767-47b7d51f-8b6c-40b5-85aa-a13c5a94423a.gif)](https://github.com/Impact-I/reFlutter/actions)
+[![gif](https://user-images.githubusercontent.com/87244850/135758767-47b7d51f-8b6c-40b5-85aa-a13c5a94423a.gif)](https://github.com/jayluxferro/reFlutter/actions)
   
 </details>
 
