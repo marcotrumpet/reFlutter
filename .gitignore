@@ -15,3 +15,5 @@ libplist/
 libusbmuxd/
 .idea/
 test.py
+src/__pycache__/
+flutter/
